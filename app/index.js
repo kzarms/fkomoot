@@ -9,6 +9,7 @@ let EXCERSIZE = 0;
 // Define screens
 const screenSelect = document.getElementById('screenSelect');
 const screenAction = document.getElementById('screenAction');
+const screenResults = document.getElementById('screenResults');
 // Get item lists
 const list = document.getElementById('exerciseList');
 const items = list.getElementsByClassName('list-item');
@@ -19,6 +20,7 @@ const items = list.getElementsByClassName('list-item');
 const buttonStart = document.getElementById('buttonStart');
 const buttonPause = document.getElementById('buttonPause');
 const buttonStop = document.getElementById('buttonStop');
+const buttonExit = document.getElementById('buttonExit');
 
 // hrmText.text = '--❤️';
 // updLable.text = '...';
@@ -26,6 +28,17 @@ const buttonStop = document.getElementById('buttonStop');
 // const lastValueTimestamp = Date.now();
 
 // Functions
+function showScreenResults() {
+  console.log('Show screen action');
+  screenSelect.style.display = 'none';
+  screenAction.style.display = 'none';
+  screenResults.style.display = 'inline';
+  // Handle buttons
+  buttonExit.addEventListener('click', () => {
+    console.log('Exit clicked');
+    appbit.exit();
+  });
+}
 function buttonsUpdate() {
   buttonStart.addEventListener('click', () => {
     console.log('Start clicked');
@@ -41,13 +54,14 @@ function buttonsUpdate() {
   });
   buttonStop.addEventListener('click', () => {
     console.log('Stop clicked');
-    // Stop everything and switch to the third screen with results
+    showScreenResults();
   });
 }
 function showScreenAction() {
   console.log('Show screen action');
   screenSelect.style.display = 'none';
   screenAction.style.display = 'inline';
+  screenResults.style.display = 'none';
   // Handle buttons
   buttonsUpdate();
 }
@@ -55,6 +69,7 @@ function showScreenSelect() {
   console.log('Show screen select');
   screenSelect.style.display = 'inline';
   screenAction.style.display = 'none';
+  screenResults.style.display = 'none';
   // Set listeners for items
   items.forEach((element, index) => {
     const touch = element.getElementById('touch');

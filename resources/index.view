@@ -39,4 +39,21 @@
       display="none"
       x="67%" y="60%" />
   </svg>
+  <!-- Screen for Completion. Show final results.-->
+  <svg id="screenResults" class="background" viewport-fill="black">
+    <text id="totalTime"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="12"
+      x="10%" y="20%">Total time</text>
+    <text id="totalDistance"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="12"
+      x="10%" y="30%">Distance</text>
+    <use id="buttonExit" href="#icon-button" class="large-button application-fill plus-button"
+      x="37%" y="60%" />
+  </svg>
 </svg>
