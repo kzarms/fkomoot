@@ -2,39 +2,24 @@ import { me as companion } from 'companion';
 import { geolocation } from 'geolocation';
 import * as messaging from 'messaging';
 
-const MILLISECONDS_PER_MINUTE = 1000 * 60;
-
-companion.wakeInterval = 0.5 * MILLISECONDS_PER_MINUTE;
 // Functions
-function doThis(position) {
-  console.log('Wake interval happened!');
-  console.log(`Significant location change! ${JSON.stringify(position)}`);
-}
-
-function sendSettingData(data) {
-// If we have a MessageSocket, send the data to the device
+function sendData(data) {
+  // If we have a MessageSocket, send the data to the device
   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send(data);
+    messaging.peerSocket.send(JSON.parse(data));
   } else {
     console.log('No peerSocket connection');
   }
 }
 
-// Listen for the event
-companion.addEventListener('wakeinterval', doThis);
-
-// Event happens if the companion is launched and has been asleep
-if (companion.launchReasons.wokenUp) {
-  doThis();
-}
-
-// GPS
-
+// GPS functions
 function locationSuccess(position) {
   console.log(
     `Latitude: ${position.coords.latitude}`,
     `Longitude: ${position.coords.longitude}`,
   );
+  const positionJSON = `{"Latitude":"${position.coords.latitude}","Longitude":"${position.coords.longitude}"}`;
+  sendData(positionJSON);
 }
 
 function locationError(error) {
@@ -43,5 +28,20 @@ function locationError(error) {
     `Message: ${error.message}`,
   );
 }
-// Run GPS monitoring
-geolocation.watchPosition(locationSuccess, locationError, { timeout: 60 * 1000 });
+
+function main() {
+  // Run GPS monitoring
+  if (!companion.permissions.granted('access_location')) {
+    console.log("We're not allowed to access the GPD, exit :(");
+    return;
+  }
+  // Start listening data from the watch
+  messaging.peerSocket.addEventListener('message', (evt) => {
+    console.log(evt.data.hr);
+  });
+  // Start monitoring GPS location
+  geolocation.watchPosition(locationSuccess, locationError, { timeout: 60 * 1000 });
+}
+
+// execution
+main();
