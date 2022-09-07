@@ -59,9 +59,8 @@ if (HeartRateSensor) {
 
 messaging.peerSocket.addEventListener('message', (evt) => {
   console.log(evt.data.Latitude);
+  gpsText.text = evt.data.Latitude;
 });
-
-
 
 // Set infinity loop for update
 setInterval(updateDisplay, 1000);
