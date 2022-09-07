@@ -1,0 +1,32 @@
+---
+# This is an a CI pipeline
+name: main
+
+# Controls when the workflow run
+on:
+  push:
+    # Triggers the workflow for feature branches and main branch
+    branches:
+      - "feature/*"
+      - "main"
+# Run build, linting, security and unit testing in parallel,
+# and in the main branch only create a release
+jobs:
+  # Build project.
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: npm i
+      - name: Build
+        run: npm run build
+  # Linting check
+  Linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: npm i
+      - name: Linting
+        run: npm run lint
