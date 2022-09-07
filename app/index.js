@@ -2,14 +2,31 @@ import * as document from 'document';
 import { HeartRateSensor } from 'heart-rate';
 import * as messaging from 'messaging';
 
+let screenSelect = document.getElementById("screenSelect");
+let screenAction = document.getElementById("screenAction");
+//let screenResult = document.getElementById("result");
+
 const hrmText = document.getElementById('hrm');
 const updLable = document.getElementById('updated');
 const gpsText = document.getElementById('gps');
+const startBtn = document.getElementById('startBtn');
 
 hrmText.text = '--❤️';
 updLable.text = '...';
 
 const lastValueTimestamp = Date.now();
+
+function showScreenSelect() {
+  console.log("Show screen select");
+  screenSelect.style.display = "inline";
+  screenAction.style.display = "none";
+}
+
+function showScreenAction() {
+  console.log("Show screen action");
+  screenSelect.style.display = "none";
+  screenAction.style.display = "inline";
+}
 
 function convertMsAgoToString(millisecondsAgo) {
   if (millisecondsAgo < 120 * 1000) {
@@ -62,6 +79,10 @@ messaging.peerSocket.addEventListener('message', (evt) => {
   gpsText.text = evt.data.Latitude;
 });
 
+showScreenSelect();
+startBtn.onclick = function (){
+  showScreenAction();
+}
 // Set infinity loop for update
 setInterval(updateDisplay, 1000);
 
