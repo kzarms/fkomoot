@@ -16,6 +16,9 @@
     ],
     "defaultLanguage": "en-US",
     "iconFile": "resources/icon.png",
+    "requestedPermissions": [
+      "access_heart_rate"
+    ],
     "wipeColor": "#607d8b"
   },
   "scripts": {
