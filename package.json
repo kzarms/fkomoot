@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@fitbit/sdk": "^6.1.0",
+    "@fitbit/sdk-cli": "^1.7.3",
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  },
+  "scripts": {
+    "build": "./node_modules/@fitbit/sdk/bin/fitbit-build.js",
+    "fb": "fitbit",
+    "lint": "eslint --ext .js app common companion",
+    "lintf": "eslint --fix --ext .js app common companion",
+    "start": " ./node_modules/@fitbit/sdk-cli/lib/cli.js"
+  }
+}
