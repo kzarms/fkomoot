@@ -1,8 +1,10 @@
 import * as document from 'document';
 import { HeartRateSensor } from 'heart-rate';
+import * as messaging from 'messaging';
 
 const hrmText = document.getElementById('hrm');
 const updLable = document.getElementById('updated');
+const gpsText = document.getElementById('gps');
 
 hrmText.text = '--❤️';
 updLable.text = '...';
@@ -26,6 +28,15 @@ function updateDisplay() {
   }
 }
 
+function sendData(data) {
+  // If we have a MessageSocket, send the data to the device
+  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+    messaging.peerSocket.send(JSON.parse(data));
+  } else {
+    console.log('No peerSocket connection');
+  }
+}
+
 if (HeartRateSensor) {
   console.log('This device has a HeartRateSensor!');
   const hrm = new HeartRateSensor();
@@ -37,6 +48,7 @@ if (HeartRateSensor) {
       hrmText.text = '--❤️';
     } else {
       hrmText.text = `${hrRate}❤️`;
+      sendData(`{"hr":"${hrRate}"}`);
     }
   });
   // Start
@@ -44,6 +56,11 @@ if (HeartRateSensor) {
 } else {
   console.log('This device does NOT have a HeartRateSensor!');
 }
+
+messaging.peerSocket.addEventListener('message', (evt) => {
+  console.log(evt.data.Latitude);
+  gpsText.text = evt.data.Latitude;
+});
 
 // Set infinity loop for update
 setInterval(updateDisplay, 1000);

@@ -9,6 +9,12 @@
     fill="white"
     font-size="24"
     text-anchor="middle"
-    text-length="8"
+    text-length="16"
     x="50%" y="40%">now!</text>
+  <text id="gps"
+    fill="white"
+    font-size="24"
+    text-anchor="middle"
+    text-length="32"
+    x="50%" y="60%">--</text>
 </svg>
