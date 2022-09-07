@@ -17,15 +17,17 @@
     "defaultLanguage": "en-US",
     "iconFile": "resources/icon.png",
     "requestedPermissions": [
-      "access_heart_rate"
+      "access_location",
+      "access_heart_rate",
+      "run_background"
     ],
     "wipeColor": "#607d8b"
   },
   "scripts": {
     "build": "./node_modules/@fitbit/sdk/bin/fitbit-build.js",
     "fb": "fitbit",
-    "lint": "eslint --ext .js app",
-    "lintf": "eslint --fix --ext .js app",
+    "lint": "eslint --ext .js app companion",
+    "lintf": "eslint --fix --ext .js app companion",
     "start": " ./node_modules/@fitbit/sdk-cli/lib/cli.js"
   }
 }

@@ -3,6 +3,7 @@ import { HeartRateSensor } from 'heart-rate';
 
 const hrmText = document.getElementById('hrm');
 const updLable = document.getElementById('updated');
+const gpsText = document.getElementById('gps');
 
 hrmText.text = '--❤️';
 updLable.text = '...';
