@@ -1,3 +1,5 @@
+.application-fill           { fill: fb-orange; }
+
 .list-item {
     height: 112;
 }
@@ -42,4 +44,8 @@
     x: 0;
     y: 0;
     opacity: 0;
+}
+
+#buttonStart #image {
+    href: "icons/start.png";
 }

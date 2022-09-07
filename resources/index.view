@@ -17,7 +17,26 @@
     </use>
   </svg>
   <!-- Screen for Action. Track values and elements.-->
-  <svg id="screenAction">
-    <rect width="100%" height="100%" fill="fb-green" />
+  <svg id="screenAction" class="background" viewport-fill="black">
+    <text id="hrmText"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="12"
+      x="50%" y="20%">60</text>
+    <text id="timeText"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="8"
+      x="50%" y="40%">now!</text>
+    <use id="buttonStart" href="#icon-button" class="large-button application-fill plus-button"
+      x="37%" y="60%" />
+    <use id="buttonPause" href="#icon-button" class="large-button application-fill plus-button"
+      display="none"
+      x="7%" y="60%" />
+    <use id="buttonStop" href="#icon-button" class="large-button application-fill plus-button"
+      display="none"
+      x="67%" y="60%" />
   </svg>
 </svg>

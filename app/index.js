@@ -1,7 +1,7 @@
 import * as document from 'document';
 import { me as appbit } from 'appbit';
-import { HeartRateSensor } from 'heart-rate';
-import * as messaging from 'messaging';
+// import { HeartRateSensor } from 'heart-rate';
+// import * as messaging from 'messaging';
 
 // Define global var
 let EXCERSIZE = 0;
@@ -13,10 +13,12 @@ const screenAction = document.getElementById('screenAction');
 const list = document.getElementById('exerciseList');
 const items = list.getElementsByClassName('list-item');
 //
-const hrmText = document.getElementById('hrm');
-const updLable = document.getElementById('updated');
-const gpsText = document.getElementById('gps');
-const startBtn = document.getElementById('startBtn');
+// const hrmText = document.getElementById('hrm');
+// const updLable = document.getElementById('updated');
+// const gpsText = document.getElementById('gps');
+const buttonStart = document.getElementById('buttonStart');
+const buttonPause = document.getElementById('buttonPause');
+const buttonStop = document.getElementById('buttonStop');
 
 // hrmText.text = '--❤️';
 // updLable.text = '...';
@@ -24,12 +26,31 @@ const startBtn = document.getElementById('startBtn');
 // const lastValueTimestamp = Date.now();
 
 // Functions
+function buttonsUpdate() {
+  buttonStart.addEventListener('click', () => {
+    console.log('Start clicked');
+    buttonStart.style.display = 'none';
+    buttonPause.style.display = 'inline';
+    buttonStop.style.display = 'inline';
+  });
+  buttonPause.addEventListener('click', () => {
+    console.log('Pause clicked');
+    buttonStart.style.display = 'inline';
+    buttonPause.style.display = 'none';
+    buttonStop.style.display = 'none';
+  });
+  buttonStop.addEventListener('click', () => {
+    console.log('Stop clicked');
+    // Stop everything and switch to the third screen with results
+  });
+}
 function showScreenAction() {
   console.log('Show screen action');
   screenSelect.style.display = 'none';
   screenAction.style.display = 'inline';
+  // Handle buttons
+  buttonsUpdate();
 }
-
 function showScreenSelect() {
   console.log('Show screen select');
   screenSelect.style.display = 'inline';
@@ -38,7 +59,7 @@ function showScreenSelect() {
   items.forEach((element, index) => {
     const touch = element.getElementById('touch');
     if (touch !== null) {
-      touch.onclick = function (evt) {
+      touch.onclick = function () {
         // console.log(`touched: ${index}`);
         if (index === 3) {
           // Exit
@@ -47,40 +68,42 @@ function showScreenSelect() {
           // Set global var and switch to the second screen
           EXCERSIZE = index;
           showScreenAction();
+          console.log(`Set exersize: ${EXCERSIZE}`);
         }
       };
     }
   });
 }
 
-function convertMsAgoToString(millisecondsAgo) {
-  if (millisecondsAgo < 120 * 1000) {
-    return `${Math.round(millisecondsAgo / 1000)}s ago`;
-  }
-  if (millisecondsAgo < 60 * 60 * 1000) {
-    return `${Math.round(millisecondsAgo / (60 * 1000))}min ago`;
-  }
+// function convertMsAgoToString(millisecondsAgo) {
+//   if (millisecondsAgo < 120 * 1000) {
+//     return `${Math.round(millisecondsAgo / 1000)}s ago`;
+//   }
+//   if (millisecondsAgo < 60 * 60 * 1000) {
+//     return `${Math.round(millisecondsAgo / (60 * 1000))}min ago`;
+//   }
 
-  return `${Math.round(millisecondsAgo / (60 * 60 * 1000))}h ago`;
-}
+//   return `${Math.round(millisecondsAgo / (60 * 60 * 1000))}h ago`;
+// }
 
-function updateDisplay() {
-  if (lastValueTimestamp !== undefined) {
-    // updLable.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
-  }
-}
+// function updateDisplay() {
+//   if (lastValueTimestamp !== undefined) {
+//     // updLable.text = convertMsAgoToString(Date.now() - lastValueTimestamp);
+//   }
+// }
 
-function sendData(data) {
-  // If we have a MessageSocket, send the data to the device
-  if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-    messaging.peerSocket.send(JSON.parse(data));
-  } else {
-    console.log('No peerSocket connection');
-  }
-}
+// function sendData(data) {
+//   // If we have a MessageSocket, send the data to the device
+//   if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+//     messaging.peerSocket.send(JSON.parse(data));
+//   } else {
+//     console.log('No peerSocket connection');
+//   }
+// }
 
 function main() {
   // Show the main screen
+  // showScreenAction();
   showScreenSelect();
 
   // // Track
