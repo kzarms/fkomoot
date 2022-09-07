@@ -1,4 +1,14 @@
 <svg>
-  <text id="hrm" x="0" y="72%" class="large-value">42</text>
-  <text id="updated" x="0" y="92%" class="updated">now!</text>
+  <text id="hrm"
+    fill="white"
+    font-size="24"
+    text-anchor="middle"
+    text-length="12"
+    x="50%" y="20%"></text>
+  <text id="updated"
+    fill="white"
+    font-size="24"
+    text-anchor="middle"
+    text-length="8"
+    x="50%" y="40%">now!</text>
 </svg>
