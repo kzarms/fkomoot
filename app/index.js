@@ -1,12 +1,14 @@
 import * as document from 'document';
 import { me as appbit } from 'appbit';
-import exercise from "exercise";
-// import { HeartRateSensor } from 'heart-rate';
+import exercise from 'exercise';
+import clock from 'clock';
+import * as utils from './utils';
+import { HeartRateSensor } from 'heart-rate';
 // import * as messaging from 'messaging';
 
 // Define global var
 let EXCERSIZE_INDEX = 0;
-let EXCERSIZE_TYPE = ["hiking", "cycling"]
+const EXCERSIZE_TYPE = ['', 'run', 'cycling'];
 
 // Define screens
 const screenSelect = document.getElementById('screenSelect');
@@ -15,17 +17,17 @@ const screenResults = document.getElementById('screenResults');
 // Get item lists
 const list = document.getElementById('exerciseList');
 const items = list.getElementsByClassName('list-item');
-//
-// const hrmText = document.getElementById('hrm');
-// const updLable = document.getElementById('updated');
+// Action screen text
+const hrmText = document.getElementById('hrmText');
+const timeText = document.getElementById('timeText');
+const speedText = document.getElementById('speedText');
+const stepsText = document.getElementById('stepsText');
+
 // const gpsText = document.getElementById('gps');
 const buttonStart = document.getElementById('buttonStart');
 const buttonPause = document.getElementById('buttonPause');
 const buttonFinish = document.getElementById('buttonFinish');
 const buttonExit = document.getElementById('buttonExit');
-
-// hrmText.text = '--❤️';
-// updLable.text = '...';
 
 // const lastValueTimestamp = Date.now();
 
@@ -42,12 +44,32 @@ function showScreenResults() {
   });
 }
 function buttonsUpdate() {
+  // Start HR
+  if (HeartRateSensor) {
+    console.log('This device has a HeartRateSensor!');
+    const hrm = new HeartRateSensor();
+    hrm.addEventListener('reading', () => {
+      // Set color based on user profile
+      const hrRate = hrm.heartRate;
+      // Set HR value
+      if (hrRate === null) {
+        hrmText.text = '--❤️';
+      } else {
+        hrmText.text = `${hrRate}❤️`;
+      }
+    });
+    // Start
+    hrm.start();
+  } else {
+    console.log('This device does NOT have a HeartRateSensor!');
+  }
+  //
   buttonStart.addEventListener('click', () => {
     buttonStart.style.display = 'none';
     buttonPause.style.display = 'inline';
     buttonFinish.style.display = 'inline';
     // If ex on pause => resume, or start if not
-    if (exercise.state === "paused") {
+    if (exercise.state === 'paused') {
       console.log(`Resume ${EXCERSIZE_TYPE[EXCERSIZE_INDEX]}`);
       exercise.resume();
     } else {
@@ -68,6 +90,22 @@ function buttonsUpdate() {
     exercise.stop();
     showScreenResults();
   });
+  // Update screen every second
+  clock.granularity = 'seconds';
+  clock.ontick = (evt) => {
+    const today_time = evt.date;
+    // Set time
+    let hours = today_time.getHours();
+    hours = utils.zeroPad(hours);
+    const mins = utils.zeroPad(today_time.getMinutes());
+    //app_time.text = `${hours}:${mins}`;
+    if (exercise && exercise.stats && exercise.state === 'started') {
+      //
+      timeText.text = utils.formatActiveTime(exercise.stats.activeTime);
+      speedText.text = `${utils.formatSpeed(exercise.stats.speed.current)}km/h`;
+      stepsText.text = `${exercise.stats.steps}`;
+    }
+  };
 }
 function showScreenAction() {
   console.log('Show screen action');
@@ -76,7 +114,6 @@ function showScreenAction() {
   screenResults.style.display = 'none';
   // Handle buttons
   buttonsUpdate();
-
 }
 function showScreenSelect() {
   console.log('Show screen select');
@@ -142,25 +179,7 @@ function main() {
   // });
 }
 
-// if (HeartRateSensor) {
-//   console.log('This device has a HeartRateSensor!');
-//   const hrm = new HeartRateSensor();
-//   hrm.addEventListener('reading', () => {
-//     // Set color based on user profile
-//     const hrRate = hrm.heartRate;
-//     // Set HR value
-//     if (hrRate === null) {
-//       hrmText.text = '--❤️';
-//     } else {
-//       hrmText.text = `${hrRate}❤️`;
-//       sendData(`{"hr":"${hrRate}"}`);
-//     }
-//   });
-//   // Start
-//   hrm.start();
-// } else {
-//   console.log('This device does NOT have a HeartRateSensor!');
-// }
+
 
 // messaging.peerSocket.addEventListener('message', (evt) => {
 //   console.log(evt.data.Latitude);

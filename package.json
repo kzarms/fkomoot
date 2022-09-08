@@ -17,6 +17,7 @@
     "defaultLanguage": "en-US",
     "iconFile": "resources/icon.png",
     "requestedPermissions": [
+      "access_activity",
       "access_exercise",
       "access_heart_rate",
       "access_location",

@@ -23,13 +23,25 @@
       font-size="24"
       text-anchor="middle"
       text-length="12"
-      x="50%" y="20%">60</text>
+      x="30%" y="20%">60</text>
     <text id="timeText"
       fill="white"
       font-size="24"
       text-anchor="middle"
-      text-length="8"
-      x="50%" y="40%">now!</text>
+      text-length="12"
+      x="60%" y="20%">0:0</text>
+    <text id="speedText"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="12"
+      x="30%" y="35%">0km/h</text>
+    <text id="stepsText"
+      fill="white"
+      font-size="24"
+      text-anchor="middle"
+      text-length="12"
+      x="60%" y="35%">0</text>
     <use id="buttonStart" href="#icon-button" class="large-button application-fill plus-button"
       x="37%" y="60%" />
     <use id="buttonPause" href="#icon-button" class="large-button application-fill plus-button"
