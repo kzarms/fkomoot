@@ -1,10 +1,12 @@
 import * as document from 'document';
 import { me as appbit } from 'appbit';
+import exercise from "exercise";
 // import { HeartRateSensor } from 'heart-rate';
 // import * as messaging from 'messaging';
 
 // Define global var
-let EXCERSIZE = 0;
+let EXCERSIZE_INDEX = 0;
+let EXCERSIZE_TYPE = ["hiking", "cycling"]
 
 // Define screens
 const screenSelect = document.getElementById('screenSelect');
@@ -41,19 +43,29 @@ function showScreenResults() {
 }
 function buttonsUpdate() {
   buttonStart.addEventListener('click', () => {
-    console.log('Start clicked');
     buttonStart.style.display = 'none';
     buttonPause.style.display = 'inline';
     buttonFinish.style.display = 'inline';
+    // If ex on pause => resume, or start if not
+    if (exercise.state === "paused") {
+      console.log(`Resume ${EXCERSIZE_TYPE[EXCERSIZE_INDEX]}`);
+      exercise.resume();
+    } else {
+      console.log(`Start ${EXCERSIZE_TYPE[EXCERSIZE_INDEX]}`);
+      exercise.start(EXCERSIZE_TYPE[EXCERSIZE_INDEX], { gps: false });
+    }
   });
   buttonPause.addEventListener('click', () => {
-    console.log('Pause clicked');
     buttonStart.style.display = 'inline';
     buttonPause.style.display = 'none';
     buttonFinish.style.display = 'none';
+    // Start exersize
+    console.log(`Pause ${EXCERSIZE_TYPE[EXCERSIZE_INDEX]}`);
+    exercise.pause();
   });
   buttonFinish.addEventListener('click', () => {
-    console.log('Finish clicked');
+    console.log(`Finish ${EXCERSIZE_TYPE[EXCERSIZE_INDEX]}`);
+    exercise.stop();
     showScreenResults();
   });
 }
@@ -64,6 +76,7 @@ function showScreenAction() {
   screenResults.style.display = 'none';
   // Handle buttons
   buttonsUpdate();
+
 }
 function showScreenSelect() {
   console.log('Show screen select');
@@ -81,9 +94,8 @@ function showScreenSelect() {
           appbit.exit();
         } else {
           // Set global var and switch to the second screen
-          EXCERSIZE = index;
+          EXCERSIZE_INDEX = parseInt(index);
           showScreenAction();
-          console.log(`Set exersize: ${EXCERSIZE}`);
         }
       };
     }

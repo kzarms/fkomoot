@@ -17,8 +17,9 @@
     "defaultLanguage": "en-US",
     "iconFile": "resources/icon.png",
     "requestedPermissions": [
-      "access_location",
+      "access_exercise",
       "access_heart_rate",
+      "access_location",
       "run_background"
     ],
     "wipeColor": "#607d8b"
