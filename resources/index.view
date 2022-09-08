@@ -35,7 +35,7 @@
     <use id="buttonPause" href="#icon-button" class="large-button application-fill plus-button"
       display="none"
       x="7%" y="60%" />
-    <use id="buttonStop" href="#icon-button" class="large-button application-fill plus-button"
+    <use id="buttonFinish" href="#icon-button" class="large-button application-fill plus-button"
       display="none"
       x="67%" y="60%" />
   </svg>

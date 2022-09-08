@@ -19,7 +19,7 @@ const items = list.getElementsByClassName('list-item');
 // const gpsText = document.getElementById('gps');
 const buttonStart = document.getElementById('buttonStart');
 const buttonPause = document.getElementById('buttonPause');
-const buttonStop = document.getElementById('buttonStop');
+const buttonFinish = document.getElementById('buttonFinish');
 const buttonExit = document.getElementById('buttonExit');
 
 // hrmText.text = '--❤️';
@@ -44,16 +44,16 @@ function buttonsUpdate() {
     console.log('Start clicked');
     buttonStart.style.display = 'none';
     buttonPause.style.display = 'inline';
-    buttonStop.style.display = 'inline';
+    buttonFinish.style.display = 'inline';
   });
   buttonPause.addEventListener('click', () => {
     console.log('Pause clicked');
     buttonStart.style.display = 'inline';
     buttonPause.style.display = 'none';
-    buttonStop.style.display = 'none';
+    buttonFinish.style.display = 'none';
   });
-  buttonStop.addEventListener('click', () => {
-    console.log('Stop clicked');
+  buttonFinish.addEventListener('click', () => {
+    console.log('Finish clicked');
     showScreenResults();
   });
 }

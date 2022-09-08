@@ -49,3 +49,12 @@
 #buttonStart #image {
     href: "icons/start.png";
 }
+#buttonPause #image {
+    href: "icons/pause.png";
+}
+#buttonFinish #image {
+    href: "icons/finish.png";
+}
+#buttonExit #image {
+    href: "icons/exit.png";
+}
